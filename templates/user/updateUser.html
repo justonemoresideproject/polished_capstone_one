@@ -1,0 +1,36 @@
+{% extends 'base.html' %} 
+
+{% block title %} Update User {% endblock %} 
+
+{% block content %}
+
+<div class="row justify-content-md-center">
+    <div class="col-md-7 col-lg-5">
+      <h2 class="join-message">Update your information</h2> 
+      <h3>Need to change your password? *Does nothing* <a href="/updatePassword">Click here</a></h3>
+
+      <form method="POST" id="user_form">
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.widget.input_type != 'hidden' and field.name != 'password' %}
+          {% for error in field.errors %}
+            <span class="text-danger">{{ error }}</span>
+          {% endfor %}
+          {{ field(placeholder=field.label.text, class="form-control") }}
+        {% endfor %}
+        
+        {% if form.password.errors %}
+        <p>To confirm changes, enter your password:</p>
+          {% for error in form.password.errors %}
+            <span class="text-danger">
+            {{ error }}
+          </span>
+          {% endfor %}
+        {% endif %}
+        {{ form.password(placeholder="Enter your password to confirm", class="form-control") }}
+        <button class="btn btn-primary btn-block btn-lg">Submit</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

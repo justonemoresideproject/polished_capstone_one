@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Base {% endblock %}</title>
+
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/popper"></script>
+    <script src="https://unpkg.com/bootstrap"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="/static/style.css">
+    
+</head>
+<body>
+    <nav class="navbar navbar-expand">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a href="/" class="navbar-brand">
+              <!-- <img src="/static/images/logo" alt="logo"> -->
+              <span>Worldly</span>
+            </a>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            
+            <!-- <li>
+              <form class="navbar-form navbar-right" action="/users">
+                <input name="q" class="form-control" placeholder="Search Warbler" id="search">
+                <button class="btn btn-default">
+                  <span class="fa fa-search"></span>
+                </button>
+              </form>
+            </li> -->
+
+            {% if not g.user %}
+            <li><a href="/signup" class="navAnchor">Sign up</a></li>
+            <span>|</span>
+            <li><a href="/login" class="navAnchor">Log in</a></li>
+            {% else %}
+            <li>
+              <a href="/update/{{ g.user.id }}" class="navAnchor">
+                {{ g.user.username }}
+              </a>
+            </li>
+            <span>|</span>
+            <li><a href="/myBoard" class="navAnchor">My Board</a><span>|</span></li>
+            <li><a href="/logout" class="navAnchor">Log out</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+      <div class="container">
+        {% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    <!-- <nav>
+        <ul>
+            <li>
+                {% if session[CURR_USER_KEY] %}
+                <a href="/logout">Logout</a>
+            </li>
+            <li>
+                <a href="/home">Home</a>
+            </li>
+            <li>
+                <a href=""></a>
+            </li>
+            {% else %} 
+            <li>
+                <a href="/login">Login</a>
+                <span>|</span>
+                <a href="/signup">Register</a>
+            </li>
+            {% endif %} 
+        </ul>
+    </nav> -->
+    
+    {% block content %} 
+
+    {% endblock %}
+
+</body>
+</html>

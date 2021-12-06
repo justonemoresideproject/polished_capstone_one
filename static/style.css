@@ -1,0 +1,30 @@
+.tableCell {
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.notAdded {
+    background-color: blue;
+    size: 20px;
+}
+
+.added {
+    background-color: red;
+    size: 20px;
+}
+
+.startButton {
+    size: 60px;
+    opacity: 80%;
+    border-radius: 10px;
+    background-color:lime;
+}
+
+.question {
+    size: 30px;
+    font-size: 20px;
+    color: white;
+    background-color: blue;
+}

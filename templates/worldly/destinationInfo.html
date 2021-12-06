@@ -1,0 +1,17 @@
+{% extends 'base.html' %} 
+
+{% block title %} Destination Info {% endblock %}
+
+<link rel="stylesheet" href="/static/style.css">
+
+{% block content %} 
+
+<h1>{{country.name.common}}</h1>
+
+<h3>Capital: {{country.capital[0]}}</h3>
+<h3>Region: {{country.region}}</h3>
+<h3>Subregion: {{country.subregion}}</h3>
+<h3>Population: {{country.population}}</h3>
+<h3>Native Name: {{country.name.nativeName.fra.official}}</h3>
+
+{% endblock %}

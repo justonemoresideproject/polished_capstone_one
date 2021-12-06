@@ -1,0 +1,66 @@
+{% extends 'base.html' %} 
+
+{% block title %} Destination Feed {% endblock %}
+
+<link rel="stylesheet" href="/static/style.css">
+
+{% block content %} 
+
+<h1></h1>
+
+<h1>Hello {{g.user.username}}</h1>
+
+<table>
+    <div>
+        <thead>
+            <tr>
+                <th>
+                    Add Destination
+                </th>
+                <th class="tableCell">
+                    Country
+                </th>
+                <th class="tableCell">
+                    Capital
+                </th>
+                <th class="tableCell">
+                    Region
+                </th>
+                <th class="tableCell">
+                    Subregion
+                </th>
+                <th class="tableCell">
+                    Population
+                </th>
+            </tr>
+        </thead>
+        <tbody id="destArea">
+            {% for country in countries %}
+            <tr>
+                <td>
+                    <button id="button_{{country.ccn3}}" class='notAdded'>Add Destination</button>
+                </td>
+                <td id="country_{{country.ccn3}}" class=".tableCell">
+                    {{country.name.common}}
+                </td>
+                <!-- Unable to take brackets out of capital. -->
+                <td id="capital_{{country.ccn3}}" class=".tableCell">
+                    {{country.capital}}
+                </td>
+                <td id="region_{{country.ccn3}}" class=".tableCell">
+                    {{country.region}}
+                </td>
+                <td id="subregion_{{country.ccn3}}" class=".tableCell">
+                    {{country.subregion}}
+                </td>
+                <td id="population_{{country.ccn3}}" class=".tableCell">
+                    {{country.population}}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </div>
+</table>
+<script src="static/dest.js"></script>
+
+{% endblock %}

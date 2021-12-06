@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/bootstrap"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <!-- <form action="/test">
+        <label for="country">Country</label>
+        <input type="text" name="country">
+        <button>Submit</button>
+    </form> -->
+
+    <form action="/test" method='POST'>
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.widget.input_type != 'hidden' %}
+          {% for error in field.errors %}
+            <span class="text-danger">{{ error }}</span>
+          {% endfor %}
+          {{ field(placeholder=field.label.text, class="form-control") }}
+        {% endfor %}
+        <button>Submit</button>
+    </form>
+
+    <p id='country'>Iraq</p>
+    <button id='button'>Add Country</button>
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+
+        <h1>{{destinations}}</h1>
+        <h1>{{user.id}}</h1>
+        <h1>{{country}}</h1>
+
+{% for dest in destinations %} 
+
+<h3>{{dest.country_name}}</h3>
+
+{% endfor %}
+</body>
+<script src='static/dest.js'></script>
+</html>

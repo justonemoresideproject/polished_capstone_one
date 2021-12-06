@@ -1,0 +1,50 @@
+{% extends 'base.html' %} 
+
+{% block title %} {{user.username}}'s Board {% endblock %} 
+
+{% block content %} 
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                {{user.username}}'s Destinations!
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                {% for destination in destinations %}
+                <tr>
+                    <td>
+                        <a href="/dest/{{destination.country_name}}">{{destination.country_name}}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td>
+                        <button><a href="/destFeed">Add destinations to your board!</a></button>
+                    </td>
+                </tr>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+        <th>
+            {{user.username}}'s Scores
+        </th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                Score 1
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}
