@@ -18,13 +18,13 @@
                 {% for destination in destinations %}
                 <tr>
                     <td>
-                        <a href="/dest/{{destination.country_name}}">{{destination.country_name}}</a>
+                        <a href="/dest/{{destination.country_name}}" class="destAnchor">{{destination.country_name}}</a>
                     </td>
                 </tr>
                 {% endfor %}
                 <tr>
                     <td>
-                        <button><a href="/destFeed">Add destinations to your board!</a></button>
+                        <a href="/destFeed" class="destAddButton">Add destinations to your board!</a>
                     </td>
                 </tr>
             </td>
@@ -32,6 +32,7 @@
     </tbody>
 </table>
 
+<!-- Add code for scores -->
 <table>
     <thead>
         <th>

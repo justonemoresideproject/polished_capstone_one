@@ -3,22 +3,23 @@
 {% block title %} Homepage {% endblock %}
 
 {% block content %} 
+<div>
+    <h1 class="title">Welcome to Worldly!</h1>
 
-<h1>Welcome to Worldly!</h1>
+    {% if g.user %}
+    <ul class="list">
+        <li><a href="/destFeed" class="navAnchor">Check out cool destinations!</a></li>
+        <li><a href="/trivia" class="navAnchor">Test your trivia knowledge!</a></li>
+    </ul>
 
-{% if g.user %}
-<ul>
-    <li><a href="/destFeed">Check out cool destinations!</a></li>
-    <li><a href="/trivia">Test your trivia knowledge!</a></li>
-</ul>
+    {% else %} 
 
-{% else %} 
+    <ul class="list">
+        <li class="navAnchor"><a href="/login">Login</a></li>
+        <li class="navAnchor"><a href="/signup">Signup</a></li>
+    </ul>
 
-<ul>
-    <li><a href="/login">Login</a></li>
-    <li><a href="/signup">Signup</a></li>
-</ul>
-
-{% endif %}
+    {% endif %}
+    </div>
 
 {% endblock %}

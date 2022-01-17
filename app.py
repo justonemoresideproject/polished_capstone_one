@@ -5,7 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import or_
 from forms import RegisterForm, LoginForm, UpdateUserForm, TestForm
-from models import db, connect_db, User, Destination
+from models import db, connect_db, User, Destination, Scores
 from flask_cors import CORS
 import requests
 
@@ -173,9 +173,15 @@ def destFeedDirect():
 
     countries = requests.get('https://restcountries.com/v3.1/all')
 
-    myDestinations = requests.get('http://localhost:5001/myDestinations')
+    # myDestinations = requests.get('http://localhost:5001/myDestinations')
 
-    return render_template('worldly/destinationFeed.html', user=user, countries=countries.json())
+    myDestinations = Destination.query.filter_by(user_id=user.id)
+
+    # if myDestinations.status_code == 204 | myDestinations.status_code == 201:
+    #     return render_template('worldly/destinationFeed.html', user=user, countries=countries.json(), myDestinations=myDestinations.json())
+
+
+    return render_template('worldly/destinationFeed.html', user=user, countries=countries.json(), myDestinations=myDestinations)
 
 @app.route('/myDestinations', methods=['POST', 'GET', 'DELETE'])
 def userDestinations():
@@ -215,7 +221,9 @@ def userDestinations():
 
         return ('Done', 201)
 
-    myDests = [dest.serialize() for dest in Destination.query.filter_by(user_id=user.id)]
+    myDestinations = Destination.query.filter_by(user_id=user.id)
+
+    myDests = [dest.serialize() for dest in myDestinations.all()]
 
     if len(myDests) == 0:
         return ('', 204)
@@ -238,6 +246,12 @@ def getTriviaGame():
         flash('Please log in', 'danger')
         return redirect('/login')
 
+    # myDestinations = requests.get('http://localhost:5001/myDestinations')
+
+    # if myDestinations.data.length > 0:
+    #     flash('The trivia games are built using chosen destinations. Please choose some destinations', 'information')
+    #     return redirect('/destFeed')
+
     user = User.query.get(session[CURR_USER_KEY])
 
     try:
@@ -247,3 +261,33 @@ def getTriviaGame():
     except: 
         flash('Please select a destination before playing.')
         return redirect('/destFeed')
+
+@app.route('/score', methods=['POST', 'GET'])
+def score():
+    user = User.query.get(session[CURR_USER_KEY])
+
+    if request.method == 'POST':
+        data = request.get_json()
+
+        score = data["score"]
+
+        user = User.query.get(session[CURR_USER_KEY])
+
+        score = Scores(
+            user_id = user.id,
+            score = score
+        )
+
+        db.session.add(score)
+        db.session.commit()
+
+        return (jsonify(score=score.serialize()), 201)
+    
+    myScores = Scores.query.filter_by(user_id=user.id)
+
+    scores = [dest.serialize() for dest in myScores.all()]
+
+    if len(scores) == 0:
+        return ('', 204)
+
+    return (jsonify(scores), 201)

@@ -89,6 +89,25 @@ class Destination(db.Model):
             'country_name': self.country_name
         }
 
+class Scores(db.Model):
+    """Model for scores"""
+
+    __tablename__ = 'scores'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    score = db.Column(db.Integer)
+
+    user = db.relationship('User', backref='scores')
+
+    def serialize(self):
+        return {
+            'user_id': self.user_id,
+            'score': self.score
+        }
+
 # class Board(db.Model):
 #     """Model for boards"""
 
