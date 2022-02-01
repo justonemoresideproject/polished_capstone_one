@@ -140,8 +140,9 @@ def userBoard():
 
     user = User.query.get(session[CURR_USER_KEY])
     destinations = Destination.query.filter_by(user_id=user.id)
+    scores = Scores.query.filter_by(user_id=user.id)
 
-    return render_template('user/userBoard.html', user=user, destinations=destinations)    
+    return render_template('user/userBoard.html', user=user, destinations=destinations, scores=scores)    
 
 @app.route('/update/<int:user_id>', methods=['GET', 'POST'])
 def updateUser(user_id):
@@ -173,15 +174,29 @@ def destFeedDirect():
 
     countries = requests.get('https://restcountries.com/v3.1/all')
 
-    # myDestinations = requests.get('http://localhost:5001/myDestinations')
+    myDestinations = Destination.query.filter_by(user_id = 1)
 
-    myDestinations = Destination.query.filter_by(user_id=user.id)
+    print("*********************")
+    print(myDestinations)
+    print("*********************")
 
     # if myDestinations.status_code == 204 | myDestinations.status_code == 201:
-    #     return render_template('worldly/destinationFeed.html', user=user, countries=countries.json(), myDestinations=myDestinations.json())
+    # return render_template('worldly/destinationFeed.html', user=user, countries=countries.json(), myDestinations=myDestinations.json())
 
+    # loop through and check if capital is defined, if yes remove brackets
 
-    return render_template('worldly/destinationFeed.html', user=user, countries=countries.json(), myDestinations=myDestinations)
+    countries = countries.json()
+
+    for i in range(len(countries)):
+        try:
+            txt = f"{countries[i]['capital']}"
+            txt = txt.lstrip('[\'').rstrip(']\'')
+            countries[i]['capital']
+            countries[i]['capital'] = txt
+        except:
+            pass
+
+    return render_template('worldly/destinationFeed.html', user=user, countries=countries, myDestinations=myDestinations)
 
 @app.route('/myDestinations', methods=['POST', 'GET', 'DELETE'])
 def userDestinations():

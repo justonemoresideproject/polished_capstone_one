@@ -6,8 +6,6 @@
 
 {% block content %} 
 
-<h1></h1>
-
 <h1>Hello {{g.user.username}}</h1>
 
 <table>
@@ -49,7 +47,9 @@
                 </td>
                 <!-- Unable to take brackets out of capital. -->
                 <td id="capital_{{country.ccn3}}" class=".tableCell">
+                    {% if country.capital %}
                     {{country.capital}}
+                    {% endif %}
                 </td>
                 <td id="region_{{country.ccn3}}" class=".tableCell">
                     {{country.region}}
