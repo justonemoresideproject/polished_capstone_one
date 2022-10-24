@@ -1,0 +1,253 @@
+body {
+    display: flexbox;
+
+    min-height: 100%;
+    width: 100vw;
+
+    margin: 0px;
+    padding: 0px;
+
+    align-items: center;
+    align-self: center;
+    align-content: center;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    /* background-image: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d29ybGQlMjBtYXB8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60.jpg'); */
+    background-image: url('https://media.istockphoto.com/photos/world-map-on-concrete-surface-picture-id1420139496?b=1&k=20&m=1420139496&s=170667a&w=0&h=8cc6IJ3X5QDvq3qIx43_NPeWqBypkRbHwnnVId6b3i0=');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    background-position:center;
+}
+
+.navbar {
+    width: 100%;
+
+    display: inline-flex;
+    align-items: flex-start;
+
+    padding-top: 0%;
+    padding-bottom: 0%;
+    padding-left: 1%;
+    padding-right: 1%;
+
+    margin-top: 0%;
+    margin-bottom: 0%;
+
+    background-color: #000000;;
+}
+
+.container-fluid {
+    display: inline-flex;
+    align-items: flex-start;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+.navbar-header {
+    display: inline-flex;
+    align-items: flex-start;
+    align-self: flex-start;
+
+    text-align: justify;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+.navbar-brand {
+    margin: 0px;
+    padding: 0px;
+}
+
+.nav {
+    font-size: larger;
+
+    display: inline-flex;
+    align-content: space-between;
+    justify-content: space-between;
+
+    padding-left: auto;
+    padding-right: auto;
+}
+
+.navbar-nav {
+    display: inline-flex;
+    align-content: space-between;
+    align-items: space-between;
+    justify-content: space-between;
+}
+
+.navbar-nav > li {
+    display: inline-flex;
+    align-content: space-between;
+    justify-content: space-between;
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+
+.btn {
+    color: #ffffff;
+    background-color:#790386;
+    font-weight: 500;
+    font-size: large;
+}
+
+.btn:hover {
+    color: #000000;
+    background-color:#e7e7e737;
+}
+
+.btn > a {
+    color: #e7e7e7;
+    text-decoration: none;
+}
+
+.title {
+    font-size: xx-large;
+    color: #790386;
+}
+
+.header {
+    font-size: xx-large;
+    color: #790386;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+
+    display: flex;
+
+    align-content: center;
+    align-self: center;
+    align-items: center;
+    text-align: center;
+
+    justify-content: center;
+}
+
+.contentContainer {
+    width: 100%;
+    height: 100%;
+
+    display: flexbox;
+
+    align-self: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+
+    text-decoration: none;
+    list-style-type: none;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+.form-control {
+    width: 100%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.alert {
+    width: 40%;
+    height: 10%;
+    margin: auto;
+    margin-top: 1%;
+    border: solid 3px red;
+
+}
+
+.list {
+    list-style-type: none;
+}
+
+.homeLi {
+    margin-top: 2%; 
+    margin-bottom: 2%;
+}
+
+.homeLi > .btn {
+    width: 20%; 
+    height: 15%;
+}
+
+#destTable {
+    width: 80vw;
+    align-self: center;
+    margin: auto;
+}
+
+.background-object {
+    background-color: rgba(199, 199, 199, 0.83);
+}
+
+#destArea {
+    background-color: rgba(199, 199, 199, 0.83);
+    border: solid black 2px;
+}
+
+#countryNameTr {
+    border-top: solid black 2px;
+    border-bottom: solid black 2px;
+}
+
+#destArea > tr > td {
+    padding-left: 0px;
+    text-align: left;
+}
+
+.buttonCell {
+    column-span: 2;
+    display: flexbox;
+    align-items: left;
+    padding-left: 5%;
+}
+
+.buttonCell > button {
+    border-style: none;
+    height: 100%;
+    width: 30%;
+    margin-left: 5%;
+    color: white;
+}
+
+.notAdded {
+    background-color: rgb(3, 179, 3);
+}
+
+.notAdded:hover {
+    background-color: green;
+}
+
+.added {
+    background-color: red;
+}
+
+.added:hover {
+    background-color: rgb(193, 4, 4);
+}
+
+.flagCell {
+    border-style: solid;
+    border-color: rgb(93, 89, 89);
+    border-width: 3px;
+}
+
+.flagCell > img {
+    width: 100%;
+    height: 100%;
+}
+
+.countryNameCell
+{
+    column-span: 2;
+    border: black solid 2px;
+    font-size: larger;
+}

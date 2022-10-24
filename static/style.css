@@ -39,18 +39,18 @@
     text-decoration: none;
     list-style: none;
     color: rgb(0, 51, 94);
-    font-size: 20px;
+    font-size: 25px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 .navAnchor:hover {
-    text-decoration: none;
-    list-style: none;
     color: rgb(199, 195, 195);
-    font-size: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
+}
+
+.list .navAnchor {
+    font-size: 30px;
+
 }
 
 .navbar-hearder {
@@ -132,7 +132,8 @@
 }
 
 .title {
-    color: rgb(0, 51, 94)
+    color: rgb(0, 51, 94);
+    font-size:40px;
 }
 
 .list {
@@ -188,4 +189,28 @@
     opacity: 100%;
     z-index: 0;
     position: absolute;
+}
+
+.homeContainer {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border-color: red;
+    background-color: blue;
+}
+
+.contentContainer {
+    margin: 0px;
+    padding: 0px;
+    left: 30%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border-color: red;
+    background-color: blue;
 }

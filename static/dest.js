@@ -1,4 +1,7 @@
 $destArea = document.getElementById('destArea')
+$destInfoContainer = document.getElementById('destInfoContainer')
+$destCountryName = document.getElementById('countryName')
+$countryRows = document.getElementsByClassName('countryRow')
 
 // https://restcountries.com/v3.1/all
 
@@ -15,6 +18,36 @@ $destArea = document.getElementById('destArea')
 // $testButton.addEventListener('click', function(e){
 //     testAddDestination('iraq')
 // })
+
+/**
+ * Requests and sets flag for each individual country.
+ * 
+ Sends out promises sequencially rather than all at once in order to make user experience smoother.
+ */
+
+// async function setFlags(){
+//     // "https://restcountries.com/data/png/col.png"
+
+//     for(let i = 0; i < $countryRows.length; i++) {
+//         console.log('test')
+//         let image = await axios.get(`https://countryflagsapi.com/png/${$countryRows[i].id}`)
+    
+//         $countryRows[i].style.backgroundImage = `${image}`
+//     }
+// }
+
+// function test() {
+//     for(let i = 0; i < $countryRows.length; i++) {
+//         $countryRows[i].style.backgroundColor = 'red'
+//     }
+// }
+
+// window.addEventListener('load', (e) => {
+//     setFlags()
+// })
+// async function getDestInfo() {
+//     await axios.get()
+// }
 
 async function deleteDestination(country){
     await axios.delete('http://localhost:5001/myDestinations', { data: { country: country } })

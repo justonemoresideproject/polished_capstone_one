@@ -2,16 +2,21 @@
 
 {% block title %} Destination Info {% endblock %}
 
-<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/styleTwo.css">
 
 {% block content %} 
 
-<h1>{{country.name.common}}</h1>
+<div id='destInfoContainer' class="background-object">
 
-<h3>Capital: {{country.capital[0]}}</h3>
-<h3>Region: {{country.region}}</h3>
-<h3>Subregion: {{country.subregion}}</h3>
-<h3>Population: {{country.population}}</h3>
-<h3>Native Name: {{country.name.nativeName.fra.official}}</h3>
+    <h1 id="countryName">{{country.name.common}}</h1>
 
+    <h3>Capital: {{country.capital[0]}}</h3>
+    <h3>Region: {{country.region}}</h3>
+    <h3>Subregion: {{country.subregion}}</h3>
+    <h3>Population: {{country.population}}</h3>
+
+    {{html|safe}}
+
+</div>
+<script src="static/dest.js"></script>
 {% endblock %}

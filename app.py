@@ -1,9 +1,10 @@
 import os
+import wikipediaapi
 
 from flask import Flask, render_template, request, flash, redirect, session, g, jsonify
-from flask_debugtoolbar import DebugToolbarExtension
-from sqlalchemy.exc import IntegrityError
+# from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy import or_
+from sqlalchemy.exc import IntegrityError
 from forms import RegisterForm, LoginForm, UpdateUserForm, TestForm
 from models import db, connect_db, User, Destination, Scores
 from flask_cors import CORS
@@ -21,12 +22,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
-toolbar = DebugToolbarExtension(app)
+# toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
-
-db.create_all()
-db.session.commit()
+with app.app_context():
+    db.create_all()
+    db.session.commit()
 
 @app.before_request
 def add_user_to_g():
@@ -172,20 +173,19 @@ def destFeedDirect():
 
     user = User.query.get(session[CURR_USER_KEY])
 
-    countries = requests.get('https://restcountries.com/v3.1/all')
+    res = requests.get('https://restcountries.com/v3.1/all')
 
-    myDestinations = Destination.query.filter_by(user_id = 1)
-
-    print("*********************")
-    print(myDestinations)
-    print("*********************")
+    myDestinations = Destination.query.filter_by(user_id=user.id)
+    myDestinationNames = []
+    for destination in myDestinations:
+        myDestinationNames.append(destination.country_name)
 
     # if myDestinations.status_code == 204 | myDestinations.status_code == 201:
     # return render_template('worldly/destinationFeed.html', user=user, countries=countries.json(), myDestinations=myDestinations.json())
 
     # loop through and check if capital is defined, if yes remove brackets
 
-    countries = countries.json()
+    countries = res.json()
 
     for i in range(len(countries)):
         try:
@@ -196,7 +196,7 @@ def destFeedDirect():
         except:
             pass
 
-    return render_template('worldly/destinationFeed.html', user=user, countries=countries, myDestinations=myDestinations)
+    return render_template('worldly/destinationFeed.html', user=user, countries=countries, myDestinationNames=myDestinationNames)
 
 @app.route('/myDestinations', methods=['POST', 'GET', 'DELETE'])
 def userDestinations():
@@ -251,9 +251,19 @@ def findDest(name):
         flash('Please log in', 'danger')
         return redirect('/login')
 
-    res = requests.get(f"https://restcountries.com/v3.1/name/'{name}'")
+    res = requests.get(f"https://restcountries.com/v3.1/name/{name}")
+    country = res.json()[0]
+    wiki_wiki = wikipediaapi.Wikipedia('en')
+    page = wiki_wiki.page(f"{name}")
+    text = page.text
 
-    return render_template('worldly/destinationInfo.html', country = res.json()[0])
+    wiki_html = wikipediaapi.Wikipedia(
+        language='en',
+        extract_format=wikipediaapi.ExtractFormat.HTML
+        )
+    page_html=wiki_html.page(f"{name}")
+
+    return render_template('worldly/destinationInfo.html', country=country, text=text, html=page_html.text)
 
 @app.route('/trivia')
 def getTriviaGame():

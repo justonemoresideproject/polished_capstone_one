@@ -3,7 +3,7 @@
 {% block title %} Homepage {% endblock %}
 
 {% block content %} 
-<div>
+<!-- <div className="homeContainer">
     <h1 class="title">Welcome to Worldly!</h1>
 
     {% if g.user %}
@@ -20,6 +20,40 @@
     </ul>
 
     {% endif %}
-    </div>
+</div> -->
+<h1 class="header">Welcome to Worldly!</h1>
+
+{% if g.user %}    
+<ul class="list">
+    <li class="homeLi">
+        <button id="destFeed" class="btn">
+            Check out cool destinations!
+        </button>
+        <!-- <a href="/destFeed" class="navAnchor"></a> -->
+    </li>
+    <li class="homeLi">
+        <button id="trivia" class="btn">
+            Test your trivia knowledge!
+        </button>
+        <!-- <a href="/trivia" class="navAnchor">Test your trivia knowledge!</a> -->
+    </li>
+</ul>
+
+{% else %} 
+
+<ul class="list">
+    <li class="homeLi">
+        <button id="login" class="btn">
+            Login
+        </button>
+    </li>
+    <li class="homeLi">
+        <button id="signup" class="btn">
+            Signup
+        </button>
+    </li>
+</ul>
+
+{% endif %}
 
 {% endblock %}

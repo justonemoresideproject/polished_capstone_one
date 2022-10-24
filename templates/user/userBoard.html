@@ -39,7 +39,13 @@
         </th>
     </thead>
     <tbody>
-        <h1>{{scores}}</h1>
+        {% for score in scores %}
+        <tr>
+            <td>
+                <h1>{{score.score}}</h1>
+            </td>
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
 

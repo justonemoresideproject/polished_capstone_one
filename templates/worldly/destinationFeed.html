@@ -2,15 +2,15 @@
 
 {% block title %} Destination Feed {% endblock %}
 
-<link rel="stylesheet" href="/static/style.css">
+<!-- <link rel="stylesheet" href="/static/style.css"> -->
 
 {% block content %} 
 
 <h1>Hello {{g.user.username}}</h1>
 
-<table>
+<table id="destTable">
     <div>
-        <thead>
+        <!-- <thead>
             <tr>
                 <th>
                     Add Destination
@@ -31,34 +31,58 @@
                     Population
                 </th>
             </tr>
-        </thead>
+        </thead> -->
         <tbody id="destArea">
             {% for country in countries %}
-            <tr>
-                <td class="buttonCell">
-                    {% if country.name.common in myDestinations %}
-                    <button id="button_{{country.ccn3}}" class='added'>Add Destination</button>
-                    {% else %}
-                    <button id="button_{{country.ccn3}}" class='notAdded'>Add Destination</button>
-                    {% endif %}
-                </td>
-                <td id="country_{{country.ccn3}}" class=".tableCell">
+            <tr class="countryNameTr">
+                <th id="country_{{country.ccn3}}" class="countryNameCell" colspan="2">
                     {{country.name.common}}
+                </th>
+                <td id="{{country.ccn3}}" class="flagCell" rowspan="7">
+                    <img src="https://countryflagsapi.com/png/{{country.ccn3}}"/>
+
                 </td>
-                <!-- Unable to take brackets out of capital. -->
-                <td id="capital_{{country.ccn3}}" class=".tableCell">
-                    {% if country.capital %}
+            </tr>
+            <tr>
+                <th>Capital</th>
+                <td id="capital_{{country.ccn3}}" class="tableCell">
                     {{country.capital}}
-                    {% endif %}
                 </td>
-                <td id="region_{{country.ccn3}}" class=".tableCell">
+            </tr>
+            <tr>
+                <th>Region</th>
+                <td id="region_{{country.ccn3}}" class="tableCell">
                     {{country.region}}
                 </td>
-                <td id="subregion_{{country.ccn3}}" class=".tableCell">
+            </tr>
+            <tr>
+                <th>Subregion</th>
+                <td id="subregion_{{country.ccn3}}" class="tableCell">
                     {{country.subregion}}
                 </td>
-                <td id="population_{{country.ccn3}}" class=".tableCell">
+            </tr>
+            <tr>
+                <th>Population</th>
+                <td id="population_{{country.ccn3}}" class="tableCell">
                     {{country.population}}
+                </td>
+            </tr>
+            <tr>
+                <td class="buttonCell" id="{{country.ccn3}}" colspan="2">
+                    {% if country.name.common in myDestinationNames %}
+                        <button id="button_{{country.ccn3}}" class='added'>
+                            Remove Destination
+                        </button>
+                        {% else %}
+                        <button id="button_{{country.ccn3}}" class='notAdded'>
+                            Add Destination
+                        </button>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr class="learnMoreTr">
+                <td colspan="2">
+                    Learn more...
                 </td>
             </tr>
             {% endfor %}
