@@ -12,13 +12,17 @@
     <script src="https://unpkg.com/bootstrap"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+    {% block scripts %} 
+    
+    {% endblock %}
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <link rel="stylesheet" href="/static/styleTwo.css">
-    
+    <link rel="stylesheet" href="static/styleTwo.css">
 </head>
 <body>
+  <div class="userId" id="{{g.user.id}}"></div>
     <nav class="navbar navbar-expand">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -72,27 +76,6 @@
         </div>
       </nav>
       <div class="container">
-    <!-- <nav>
-        <ul>
-            <li>
-                {% if session[CURR_USER_KEY] %}
-                <a href="/logout">Logout</a>
-            </li>
-            <li>
-                <a href="/home">Home</a>
-            </li>
-            <li>
-                <a href=""></a>
-            </li>
-            {% else %} 
-            <li>
-                <a href="/login">Login</a>
-                <span>|</span>
-                <a href="/signup">Register</a>
-            </li>
-            {% endif %} 
-        </ul>
-    </nav> -->
       <div class="contentContainer">
         {% block content %} 
 

@@ -1,0 +1,56 @@
+.userTableContainer {
+    width: 100vw;
+    background-color: rgba(199, 199, 199, 0.83);
+    display:inline-flex;
+    align-content: center;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+.userTable {
+    background-color: rgba(234, 231, 231, 0.83);
+    width: 90vw;
+    display: table;
+
+    border: 3 solid black;
+
+    margin: auto;
+    padding: 0px;
+}
+
+.userTable > thead {
+    display: table-header-group;
+    margin: 0px;
+    padding: 0px;
+
+    border: 3 solid black;
+}
+
+.userTable > thead > tr {
+    width: 100%;
+    margin: 0px;
+
+    border: 3 solid black;
+}
+
+.userTable > tbody > tr > td {
+    justify-content: center;
+    align-content: center;
+}
+
+.userTable > tbody > tr > td > ul {
+    list-style-type: none;
+    
+}
+
+.userTable > tbody > tr > td > ul > li {
+    list-style-type: none;
+    color: red;
+    font-size: xx-large;
+}
+
+#user_form {
+    width: 80%;
+    margin: auto;
+}

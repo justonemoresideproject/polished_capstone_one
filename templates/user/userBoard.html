@@ -2,50 +2,79 @@
 
 {% block title %} {{user.username}}'s Board {% endblock %} 
 
+<!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+<link rel="stylesheet" href="/static/styleTwo.css">
+
+<link rel="stylesheet" href= "{{ url_for('static',filename='userInfoStyle.css') }}"> -->
+
+{% block scripts %} 
+<link rel="stylesheet" href= "{{ url_for('static',filename='userInfoStyle.css') }}">
+<link rel="stylesheet" href="static/userInfoStyle.css">
+{% endblock %}
+
 {% block content %} 
 
-<table>
+<h1>{{user.username}}'s Profile</h1>
+
+<table class="userTable">
     <thead>
         <tr>
             <th>
-                {{user.username}}'s Destinations!
+               Destinations
+            </th>
+            <th>
+                Trivia Scores
             </th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
-                {% for destination in destinations %}
-                <tr>
-                    <td>
-                        <a href="/dest/{{destination.country_name}}" class="destAnchor">{{destination.country_name}}</a>
-                    </td>
-                </tr>
+                <ul>
+                    {% for destination in destinations %}
+                    <li>
+                        <a href="/dest/{{destination.country_name}}" class="destAnchor">
+                            {{destination.country_name}}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td rowspan="{{scores.length}}">
+                <ul>
+                {% for score in scores %}
+                    <li>{{score.score}}</li>
                 {% endfor %}
-                <tr>
-                    <td>
-                        <a href="/destFeed" class="destAddButton">Add destinations to your board!</a>
-                    </td>
-                </tr>
+                </ul>
             </td>
-        </tr>
-    </tbody>
-</table>
-
-<table>
-    <thead>
-        <th>
-            {{user.username}}'s Scores
-        </th>
-    </thead>
-    <tbody>
-        {% for score in scores %}
-        <tr>
             <td>
-                <h1>{{score.score}}</h1>
+                <h2 class="join-message">Update your information</h2> 
+                <h3>Need to change your password? *Does nothing* <a href="/updatePassword">Click here</a></h3>
+
+                <form method="POST" id="user_form">
+                    {{ form.hidden_tag() }}
+
+                    {% for field in form if field.widget.input_type != 'hidden' and field.name != 'password' %}
+                    {% for error in field.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                    {{ field(placeholder=field.label.text, class="form-control") }}
+                    {% endfor %}
+                    
+                    {% if form.password.errors %}
+                    <p>To confirm changes, enter your password:</p>
+                    {% for error in form.password.errors %}
+                        <span class="text-danger">
+                        {{ error }}
+                    </span>
+                    {% endfor %}
+                    {% endif %}
+                    {{ form.password(placeholder="Enter your password to confirm", class="form-control") }}
+                    <button class="btn btn-primary btn-block btn-lg">Submit</button>
+                </form>
             </td>
         </tr>
-        {% endfor %}
     </tbody>
 </table>
 

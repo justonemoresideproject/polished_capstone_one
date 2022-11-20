@@ -21,7 +21,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///worldly'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
+app.secret_key = "secret"
+# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
 # toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
@@ -41,6 +42,7 @@ def add_user_to_g():
 
 def do_login(user):
     session[CURR_USER_KEY] = user.id
+    print(session)
 
 def do_logout():
     if CURR_USER_KEY in session:
@@ -140,10 +142,11 @@ def userBoard():
         return redirect('/login')
 
     user = User.query.get(session[CURR_USER_KEY])
+    form = UpdateUserForm(obj=user)
     destinations = Destination.query.filter_by(user_id=user.id)
     scores = Scores.query.filter_by(user_id=user.id)
 
-    return render_template('user/userBoard.html', user=user, destinations=destinations, scores=scores)    
+    return render_template('user/userBoard.html', user=user, destinations=destinations, scores=scores, form=form)    
 
 @app.route('/update/<int:user_id>', methods=['GET', 'POST'])
 def updateUser(user_id):
@@ -203,6 +206,8 @@ def userDestinations():
     # if CURR_USER_KEY not in session:
     #     flash('Please log in', 'danger')
     #     return redirect('/login')
+
+    print(session)
 
     user = User.query.get(session[CURR_USER_KEY])
 
@@ -282,24 +287,20 @@ def getTriviaGame():
     try:
         destinations = Destination.query.filter_by(user_id=user.id)
 
-        return render_template('games/trivia.html')
+        return render_template('games/trivia.html', destinations=destinations)
     except: 
         flash('Please select a destination before playing.')
         return redirect('/destFeed')
 
-@app.route('/score', methods=['POST', 'GET'])
-def score():
-    user = User.query.get(session[CURR_USER_KEY])
-
+@app.route('/score/<user_id>', methods=['POST', 'GET'])
+def score(user_id):
     if request.method == 'POST':
         data = request.get_json()
 
         score = data["score"]
 
-        user = User.query.get(session[CURR_USER_KEY])
-
         score = Scores(
-            user_id = user.id,
+            user_id = user_id,
             score = score
         )
 
@@ -308,7 +309,7 @@ def score():
 
         return (jsonify(score=score.serialize()), 201)
     
-    myScores = Scores.query.filter_by(user_id=user.id)
+    myScores = Scores.query.filter_by(user_id=user_id)
 
     scores = [dest.serialize() for dest in myScores.all()]
 

@@ -251,3 +251,17 @@ body {
     border: black solid 2px;
     font-size: larger;
 }
+
+/* .userTable {
+    background-color: rgba(199, 199, 199, 0.83);
+    width: 90vw;
+    display: table;
+}
+
+.userTable > thead {
+    display: table-header-group;
+}
+
+.userTable > tbody > tr > td > ul > li {
+    list-style-type: none;
+} */

@@ -2,12 +2,23 @@
 
 {% block title %} Game Page {% endblock %} 
 
+{% block scripts %} 
+
+<link rel="stylesheet" href="static/game.css">
+
+{% endblock %}
+
 {% block content %} 
 
-<button id="playButton" class="startButton">Play Game</button><button><a href="/destFeed">Find Destinations</a></button>
+<button id="playButton" class="startButton">Play Game</button>
+<button><a href="/destFeed">Find Destinations</a></button>
 <!-- <button id="testButton">TestButton</button> -->
 <div id="gameArea">
-    <img id="gif" src="static/spinner-gif.gif" alt="">
+    {% for destination in destinations %}
+    <h3 class="destContainer" id="{{destination.country_name}}">
+        {{destination}}
+    </h3>
+    {% endfor %}
 </div>
 
 <script src="static/game.js"></script>
