@@ -1,0 +1,81 @@
+#destTable {
+    width: 80vw;
+    align-self: center;
+    margin: auto;
+}
+
+.background-object {
+    background-color: rgba(199, 199, 199, 0.83);
+}
+
+#destArea {
+    background-color: rgba(199, 199, 199, 0.83);
+    border: solid black 2px;
+}
+
+#countryNameTr {
+    border-top: solid black 2px;
+    border-bottom: solid black 2px;
+}
+
+#destArea > tr > td {
+    padding-left: 0px;
+    text-align: left;
+}
+
+.buttonCell {
+    column-span: 2;
+    display: flexbox;
+    align-items: left;
+    padding-left: 5%;
+}
+
+.buttonCell > button {
+    border-style: none;
+    height: 100%;
+    width: 30%;
+    margin-left: 5%;
+    color: white;
+}
+
+.notAdded {
+    background-color: rgb(3, 179, 3);
+}
+
+.notAdded:hover {
+    background-color: green;
+}
+
+.added {
+    background-color: red;
+}
+
+.added:hover {
+    background-color: rgb(193, 4, 4);
+}
+
+.flagCell {
+    border-style: solid;
+    border-color: rgb(93, 89, 89);
+    border-width: 3px;
+}
+
+.flagCell > img {
+    width: 100%;
+    height: 100%;
+}
+
+.countryNameCell
+{
+    column-span: 2;
+    border: black solid 2px;
+    font-size: larger;
+}
+
+.learnMore {
+    background-color: rgb(58, 58, 242);
+}
+
+.learnMore:hover {
+    background-color: rgb(4, 4, 235);
+}

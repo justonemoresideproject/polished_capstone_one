@@ -2,36 +2,16 @@
 
 {% block title %} Destination Feed {% endblock %}
 
-<!-- <link rel="stylesheet" href="/static/style.css"> -->
+{% block scripts %} 
+
+<link rel="stylesheet" href="/static/dest.css">
+
+{% endblock %}
 
 {% block content %} 
 
-<h1>Hello {{g.user.username}}</h1>
-
 <table id="destTable">
     <div>
-        <!-- <thead>
-            <tr>
-                <th>
-                    Add Destination
-                </th>
-                <th class="tableCell">
-                    Country
-                </th>
-                <th class="tableCell">
-                    Capital
-                </th>
-                <th class="tableCell">
-                    Region
-                </th>
-                <th class="tableCell">
-                    Subregion
-                </th>
-                <th class="tableCell">
-                    Population
-                </th>
-            </tr>
-        </thead> -->
         <tbody id="destArea">
             {% for country in countries %}
             <tr class="countryNameTr">
@@ -81,8 +61,10 @@
                 </td>
             </tr>
             <tr class="learnMoreTr">
-                <td colspan="2">
-                    Learn more...
+                <td class="buttonCell" colspan="2">
+                    <button id="{{country.name.common}}" class="learnMore">
+                        Learn More...
+                    </button>
                 </td>
             </tr>
             {% endfor %}

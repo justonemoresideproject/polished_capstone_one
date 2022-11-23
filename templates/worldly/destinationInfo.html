@@ -2,7 +2,12 @@
 
 {% block title %} Destination Info {% endblock %}
 
-<link rel="stylesheet" href="/static/styleTwo.css">
+{% block scripts %}
+
+<link rel="stylesheet" href="/static/dest.css">
+<script src="static/dest.js"></script>
+
+{% endblock %}
 
 {% block content %} 
 
@@ -18,5 +23,4 @@
     {{html|safe}}
 
 </div>
-<script src="static/dest.js"></script>
 {% endblock %}

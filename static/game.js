@@ -74,6 +74,7 @@ function getRandomNum(length){
  */
 
 function gameOver() {
+    myDestinations = []
     const h1 = document.createElement('h1')
     h1.innerText = 'Game Over!'
     h1.className = 'gameOverHeader'
@@ -84,10 +85,15 @@ function gameOver() {
     h3.className = 'gameOverScore'
     h3.id = 'gameOverScore'
 
+    const div = document.createElement('div')
+    div.className = 'gameOverContainer'
+    div.id = 'gameOverContainer'
+
     console.log('Game Over Function')
     addScore()
-    $gameArea.append(h1)
-    $gameArea.append(h3)
+    div.append(h1)
+    div.append(h3)
+    $gameArea.append(div)
 }
 
 /**
@@ -237,7 +243,7 @@ function createTable(textMap, questions=myDestinations.length, answers=4, answer
     const thead = document.createElement('thead')
     const tbody = document.createElement('tbody')
     const headTr = document.createElement('tr')
-    const questionTd = document.createElement('td')
+    const questionTd = document.createElement('th')
     const prompt = document.createElement('h3')
 
     newTable.id = 'gameTable'
@@ -250,6 +256,8 @@ function createTable(textMap, questions=myDestinations.length, answers=4, answer
     tbody.className = 'gameBody'
     headTr.className = 'questionRow'
     questionTd.className = 'questionContainer'
+
+    questionTd.colSpan = answersPerRow;
 
     prompt.innerText = textMap.question.pop()
 
@@ -264,6 +272,7 @@ function createTable(textMap, questions=myDestinations.length, answers=4, answer
     function bodyElementsCreation() {
         for(let i = 0; i < numRows; i++) {
             const trElement = document.createElement('tr')
+            trElement.className = "tableRow"
             for(let j = i * answersPerRow; j < answersPerRow + i * answersPerRow; j++) {
                 const tdElement = document.createElement('td')
                 const buttonElement = document.createElement('button')
@@ -359,6 +368,9 @@ async function startGame() {
     showLoadingView()
     console.log('after showLoadingView()')
     destIndex = 0;
+    score = 0;
+
+    myDestinations = []
 
     pushDests()
     await generateQuestions(myDestinations[destIndex]).then(res => {
@@ -367,6 +379,19 @@ async function startGame() {
     }).catch(err => {
         console.error(err)
     })
+}
+
+function reset() {
+    try {
+        if(document.getElementById('gameTable')) {
+            document.getElementById('gameTable').remove()
+        } else {
+            document.getElementById('gameOverContainer').remove()
+        }
+    } catch (error) {
+        console.log(error)
+    }
+
 }
 
 // Obsolete
@@ -397,12 +422,12 @@ async function startGame() {
 
 
 $playButton.addEventListener('click', function(){
-    if(this.className == 'startButton'){
+    if(this.className == 'gameButton'){
         this.innerText = 'Reset'
         this.className = 'resetButton'
         startGame()
     } else {
-        document.getElementById('gameTable').remove()
+        reset()
         startGame()
     }
 })

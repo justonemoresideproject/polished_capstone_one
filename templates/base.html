@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <link rel="stylesheet" href="static/styleTwo.css">
+    <link rel="stylesheet" href="static/base.css">
 </head>
 <body>
   <div class="userId" id="{{g.user.id}}"></div>
@@ -51,24 +51,18 @@
             </li>
             {% else %}
             <li>
-              <a href="/update/{{ g.user.id }}" class="navAnchor">
-                {{ g.user.username }}
-              </a>
-            </li>
-            <span>|</span>
-            <li>
               <button id="myBoard" class="btn">
-                <a href="/myBoard" class="navAnchor">
-                  My Board
-                </a>
+                My Board
               </button>
-              <span>|</span>
+            </li>
+            <li>
+              <button id="destFeed" class="btn">
+                Find Destinations
+              </button>
             </li>
             <li>
               <button id="logout" class="btn">
-                <a href="/logout" class="navAnchor">
-                  Log out
-                </a>
+                Log out
               </button>
             </li>
             {% endif %}

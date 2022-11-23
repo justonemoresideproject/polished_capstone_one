@@ -2,6 +2,7 @@ $destArea = document.getElementById('destArea')
 $destInfoContainer = document.getElementById('destInfoContainer')
 $destCountryName = document.getElementById('countryName')
 $countryRows = document.getElementsByClassName('countryRow')
+$learnMores = document.getElementsByClassName('learnMore')
 
 // https://restcountries.com/v3.1/all
 
@@ -72,7 +73,6 @@ async function addDestination(country){
 $('button[id^="button_"]').each(function(){
     $(this).click(function(){
         countryCode = this.id.slice(7, this.id.length)
-        console.log(this)
         if(this.className != 'added'){
             addDestination($(`#country_${countryCode}`)[0].innerText)
             this.className = 'added'
@@ -95,3 +95,17 @@ function addDestClick(evt) {
 
     evt.className = 'added'
 }
+
+function navigateToLearnMore(country) {
+    location.href = `/dest/${country}`
+}
+
+function setAllButtonsOnClick() {
+    for(let i = 0; i < $learnMores.length; i++) {
+        $learnMores[i].onclick = () => navigateToLearnMore($learnMores[i].id)
+    }
+}
+
+window.addEventListener('load', (e) => {
+    setAllButtonsOnClick()
+})
