@@ -4,52 +4,6 @@ $destCountryName = document.getElementById('countryName')
 $countryRows = document.getElementsByClassName('countryRow')
 $learnMores = document.getElementsByClassName('learnMore')
 
-// https://restcountries.com/v3.1/all
-
-// $testButton = document.getElementById('button')
-// $testCountry = document.getElementById('country')
-
-// async function testAddDestination(country){
-//     console.log(country)
-//     await axios.post(`http://localhost:5001/test`,
-//         { country: country  }
-//     );
-// }
-
-// $testButton.addEventListener('click', function(e){
-//     testAddDestination('iraq')
-// })
-
-/**
- * Requests and sets flag for each individual country.
- * 
- Sends out promises sequencially rather than all at once in order to make user experience smoother.
- */
-
-// async function setFlags(){
-//     // "https://restcountries.com/data/png/col.png"
-
-//     for(let i = 0; i < $countryRows.length; i++) {
-//         console.log('test')
-//         let image = await axios.get(`https://countryflagsapi.com/png/${$countryRows[i].id}`)
-    
-//         $countryRows[i].style.backgroundImage = `${image}`
-//     }
-// }
-
-// function test() {
-//     for(let i = 0; i < $countryRows.length; i++) {
-//         $countryRows[i].style.backgroundColor = 'red'
-//     }
-// }
-
-// window.addEventListener('load', (e) => {
-//     setFlags()
-// })
-// async function getDestInfo() {
-//     await axios.get()
-// }
-
 async function deleteDestination(country){
     await axios.delete('http://localhost:5001/myDestinations', { data: { country: country } })
 }
@@ -96,14 +50,95 @@ function addDestClick(evt) {
     evt.className = 'added'
 }
 
+/**
+ * Uses location.href to navigate to a page about the country passed to the function.
+ * @param {string} country 
+ */
 function navigateToLearnMore(country) {
     location.href = `/dest/${country}`
 }
 
+/**
+ * Adds an event listener with function navigateToLearnMore to all buttons with class 'learnMore'
+ */
 function setAllButtonsOnClick() {
     for(let i = 0; i < $learnMores.length; i++) {
         $learnMores[i].onclick = () => navigateToLearnMore($learnMores[i].id)
     }
+}
+
+// https://en.wikipedia.org/w/api.php?action=help&format=json&recursivesubmodules=1&formatversion=2
+
+// async function getWikiText(country) {
+//     const url = "https://en.wikipedia.org/w/api.php?" +
+//     new URLSearchParams({
+//         action: "parse",
+//         page: `${country}`,
+//         prop: "text",
+//         formatversion: "2",
+//     });
+
+//     try {
+//         const req = await axios.get(url);
+//         console.log(req)
+//         const json = await req.json();
+//         console.log(json.parse.text["*"]);
+//     } catch (e) {
+//         console.error(e);
+//     }
+// }
+
+// async function getWikiText(country) {
+//     let url = "https://www.mediawiki.org/w/api.php";
+
+//     let params = {
+//         action: "query",
+//         prop: "revisions",
+//         titles: `${country}`,
+//         rvprop: "timestamp|user|comment|content",
+//         rvslots: "main",
+//         formatversion: "2",
+//         format: "json"
+//     };
+
+//     url = url + "?origin=*";
+//     Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];});
+
+//     await axios.get(url)
+//         .then(res => {
+//             console.log(res)
+//             return res.json();})
+//         .then(res => {
+//             console.log(res)
+//             var pages = res.query.pages;
+//             for (var p in pages) {
+//                 console.log(pages[p].revisions);
+//             }
+//         })
+//         .catch(function(error){console.log(error);});
+// }
+
+function createLearnMoreWindow(country) {
+    const backgroundDiv = document.createElement('div')
+    const infoContainer = document.createElement('div')
+    const countryName = document.createElement('h1')
+    const capital = document.createElement('h3')
+    const region = document.createElement('h3')
+    const subregion = document.createElement('h3')
+    const population = document.createElement('h3')
+
+    backgroundDiv.className = 'backgroundObject'
+    infoContainer.className = 'destInfoContainer'
+    countryName.className = 'countryH1'
+    capital.className = 'capitalH3'
+    region.className = 'regionH3'
+    subregion.className = 'subregionH3'
+    population.className ='populationH3'
+
+    backgroundDiv.id = 'backgroundInfoContainer'
+    infoContainer.id = `${country}`
+
+
 }
 
 window.addEventListener('load', (e) => {

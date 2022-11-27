@@ -24,6 +24,7 @@ body {
 
 .navbar {
     width: 100%;
+    height: 10%;
 
     display: inline-flex;
     align-items: flex-start;

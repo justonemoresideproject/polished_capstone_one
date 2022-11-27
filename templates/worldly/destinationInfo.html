@@ -5,7 +5,7 @@
 {% block scripts %}
 
 <link rel="stylesheet" href="/static/dest.css">
-<script src="static/dest.js"></script>
+<script src="/static/dest.js"></script>
 
 {% endblock %}
 
@@ -20,7 +20,7 @@
     <h3>Subregion: {{country.subregion}}</h3>
     <h3>Population: {{country.population}}</h3>
 
-    {{html|safe}}
+    <p>{{html|safe}}</p>
 
 </div>
 {% endblock %}

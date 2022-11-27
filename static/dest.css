@@ -5,7 +5,17 @@
 }
 
 .background-object {
+    margin-top: 5%;
     background-color: rgba(199, 199, 199, 0.83);
+}
+
+.backgroundObject {
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(199, 199, 199, 0.83);
+
+    position:fixed;
 }
 
 #destArea {
