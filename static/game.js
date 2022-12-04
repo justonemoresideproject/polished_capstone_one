@@ -13,10 +13,13 @@ let score = 0
 let myDestinations = []
 let destIndex = 0;
 
+/**
+ * sends a post requrest to the flask server to add the current score to the user's score table
+ */
 async function addScore(){
     const userId = document.getElementsByClassName('userId')[0].id
 
-    await axios.post(`http://localhost:5001/score/${userId}`, { score: score })
+    await axios.post(`http://localhost:5000/score/${userId}`, { score: score })
 }
 
 /**
@@ -44,7 +47,7 @@ async function getCountry(country){
 
 // does not work due to werkzeug. Had to create a work around instead.
 async function getMyDestinations(){
-    res = await axios.get('http://localhost:5001/myDestinations')
+    res = await axios.get('http://localhost:5000/myDestinations')
 
     return res
 }
@@ -341,18 +344,6 @@ function hideLoadingView(gameTable){
 }
 
 /**
- * Accepts the destination object from the sql server.
- * @param {object} res 
- */
-
-// Due to being unable to get sql information from server using js, a work around had to be created. This is now obsolete 
-// function pushDests(res){
-//     for(i = 0; i < res.data.length; i++){
-//         myDestinations.push(res.data[i].country_name)
-//     }
-// }
-
-/**
  * Takes the h3 elements with the class of destContainer and pushes them to the myDestinations array.
  */
 
@@ -364,6 +355,9 @@ function pushDests() {
     }
 }
 
+/**
+ * Begins the trivia game 
+ */
 async function startGame() {
     showLoadingView()
     console.log('after showLoadingView()')
@@ -391,34 +385,8 @@ function reset() {
     } catch (error) {
         console.log(error)
     }
-
 }
 
-// Obsolete
-// if(gameOn){
-//     $('td[id^="answer_"]').each(function(){
-//         $(this).click(function(){
-//             destsIndex++
-//             if(this.innerText == obj["correctAnswer"]){
-//                 alert('Correct!')
-//                 score++; 
-//             } 
-//             else{
-//                 alert('Incorrect!')
-//             }
-    
-//             if(destsIndex >= myDestinations.length){
-//                 alert('Game Over!')
-//                 gameOn = false
-
-//             } else {
-//                 generateQuestions(myDestinations[destsIndex])
-//                     .then(obj => addText(obj))
-//                     .catch(err => alert(err))
-//             }
-//         })
-//     })
-// }
 
 
 $playButton.addEventListener('click', function(){

@@ -5,7 +5,7 @@ $countryRows = document.getElementsByClassName('countryRow')
 $learnMores = document.getElementsByClassName('learnMore')
 
 async function deleteDestination(country){
-    await axios.delete('http://localhost:5001/myDestinations', { data: { country: country } })
+    await axios.delete('http://localhost:5000/myDestinations', { data: { country: country } })
 }
 
 async function getAllDestinations(){
@@ -20,8 +20,12 @@ async function getMyDestinations(){
     return res
 }
 
+/**
+ * Accepts a country string and sends a post request to the flask server to add the country to the user's destination table
+ * @param {string} country 
+ */
 async function addDestination(country){
-    await axios.post('http://localhost:5001/myDestinations', { country: country })
+    await axios.post('http://localhost:5000/myDestinations', { country: country })
 }
 
 $('button[id^="button_"]').each(function(){
@@ -40,6 +44,10 @@ $('button[id^="button_"]').each(function(){
     });
 });
 
+/**
+ * Accepts an event and sets the class of the event element as added
+ * @param {element} evt 
+ */
 function addDestClick(evt) {
     evtId = evt.id
     
@@ -67,57 +75,10 @@ function setAllButtonsOnClick() {
     }
 }
 
-// https://en.wikipedia.org/w/api.php?action=help&format=json&recursivesubmodules=1&formatversion=2
-
-// async function getWikiText(country) {
-//     const url = "https://en.wikipedia.org/w/api.php?" +
-//     new URLSearchParams({
-//         action: "parse",
-//         page: `${country}`,
-//         prop: "text",
-//         formatversion: "2",
-//     });
-
-//     try {
-//         const req = await axios.get(url);
-//         console.log(req)
-//         const json = await req.json();
-//         console.log(json.parse.text["*"]);
-//     } catch (e) {
-//         console.error(e);
-//     }
-// }
-
-// async function getWikiText(country) {
-//     let url = "https://www.mediawiki.org/w/api.php";
-
-//     let params = {
-//         action: "query",
-//         prop: "revisions",
-//         titles: `${country}`,
-//         rvprop: "timestamp|user|comment|content",
-//         rvslots: "main",
-//         formatversion: "2",
-//         format: "json"
-//     };
-
-//     url = url + "?origin=*";
-//     Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];});
-
-//     await axios.get(url)
-//         .then(res => {
-//             console.log(res)
-//             return res.json();})
-//         .then(res => {
-//             console.log(res)
-//             var pages = res.query.pages;
-//             for (var p in pages) {
-//                 console.log(pages[p].revisions);
-//             }
-//         })
-//         .catch(function(error){console.log(error);});
-// }
-
+/**
+ * Accepts a string and returns a div element that gives more information on the passed country
+ * @param {string} country 
+ */
 function createLearnMoreWindow(country) {
     const backgroundDiv = document.createElement('div')
     const infoContainer = document.createElement('div')
