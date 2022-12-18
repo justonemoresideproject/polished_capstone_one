@@ -2,12 +2,6 @@
 
 {% block title %} {{user.username}}'s Board {% endblock %} 
 
-<!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-<link rel="stylesheet" href="/static/styleTwo.css">
-
-<link rel="stylesheet" href= "{{ url_for('static',filename='userInfoStyle.css') }}"> -->
-
 {% block scripts %} 
 <link rel="stylesheet" href= "{{ url_for('static',filename='userInfoStyle.css') }}">
 <link rel="stylesheet" href="static/userInfoStyle.css">
@@ -50,7 +44,6 @@
             </td>
             <td>
                 <h2 class="join-message">Update your information</h2> 
-                <h3>Need to change your password? *Does nothing* <a href="/updatePassword">Click here</a></h3>
 
                 <form method="POST" id="user_form">
                     {{ form.hidden_tag() }}
@@ -73,6 +66,7 @@
                     {{ form.password(placeholder="Enter your password to confirm", class="form-control") }}
                     <button class="btn btn-primary btn-block btn-lg">Submit</button>
                 </form>
+                <h3>Need to change your password? *Does nothing* <a href="/updatePassword">Click here</a></h3>
             </td>
         </tr>
     </tbody>

@@ -1,3 +1,5 @@
+$cookies = document.cookie.split('=')
+$userID = $cookies[$cookies.indexOf('userID') + 1]
 $destArea = document.getElementById('destArea')
 $destInfoContainer = document.getElementById('destInfoContainer')
 $destCountryName = document.getElementById('countryName')
@@ -5,7 +7,8 @@ $countryRows = document.getElementsByClassName('countryRow')
 $learnMores = document.getElementsByClassName('learnMore')
 
 async function deleteDestination(country){
-    await axios.delete('http://localhost:5000/myDestinations', { data: { country: country } })
+    await axios.delete(`http://localhost:5000/myDestinations/${$userID}`, { data: { country: country } })
+    console.log(`${country} Deleted`)
 }
 
 async function getAllDestinations(){
@@ -25,7 +28,7 @@ async function getMyDestinations(){
  * @param {string} country 
  */
 async function addDestination(country){
-    await axios.post('http://localhost:5000/myDestinations', { country: country })
+    await axios.post(`http://localhost:5000/myDestinations/${$userID}`, { country: country })
 }
 
 $('button[id^="button_"]').each(function(){

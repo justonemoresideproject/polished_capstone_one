@@ -1,7 +1,7 @@
 import os
 import wikipediaapi
 
-from flask import Flask, render_template, request, flash, redirect, session, g, jsonify
+from flask import Flask, make_response, render_template, request, flash, redirect, session, g, jsonify
 # from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
@@ -52,6 +52,7 @@ def do_logout():
 def test():
     user = User.query.get(session[CURR_USER_KEY])
     form = TestForm()
+    print(user.id)
     
     if request.method == "POST":
         data = request.get_json()
@@ -72,7 +73,12 @@ def test():
 
     destinations = Destination.query.all()
 
-    return render_template('test.html', user=user, destinations=destinations, form=form)
+    resp = make_response(render_template('test.html', user=user, destinations=destinations, form=form))
+
+    resp.set_cookie('userId', f"{user.id}")
+
+    return resp
+    # return render_template('test.html', user=user, destinations=destinations, form=form)
 
 # Landing / Login / Register
 @app.route('/')
@@ -199,27 +205,27 @@ def destFeedDirect():
         except:
             pass
 
-    return render_template('worldly/destinationFeed.html', user=user, countries=countries, myDestinationNames=myDestinationNames)
+    resp = make_response(render_template("worldly/destinationFeed.html", user=user, countries=countries, myDestinationNames=myDestinationNames))
 
-@app.route('/myDestinations', methods=['POST', 'GET', 'DELETE'])
-def userDestinations():
+    resp.set_cookie('userID', f"{user.id}")
+
+    return resp
+
+    # return render_template('worldly/destinationFeed.html', user=user, countries=countries, myDestinationNames=myDestinationNames)
+
+@app.route('/myDestinations/<int:userID>', methods=['POST', 'GET', 'DELETE'])
+def userDestinations(userID):
     # if CURR_USER_KEY not in session:
     #     flash('Please log in', 'danger')
     #     return redirect('/login')
-
-    print(session)
-
-    user = User.query.get(session[CURR_USER_KEY])
 
     if request.method == "POST":
         data = request.get_json()
 
         countryName = data["country"]
 
-        user = User.query.get(session[CURR_USER_KEY])
-
         destination = Destination(
-            user_id = user.id,
+            user_id = userID,
             country_name = countryName
         )
 
@@ -233,15 +239,13 @@ def userDestinations():
 
         countryName = data["country"]
 
-        user = User.query.get(session[CURR_USER_KEY])
-
-        destination = db.session.query(Destination).filter_by(user_id=user.id, country_name=countryName).delete()
+        destination = db.session.query(Destination).filter_by(user_id=userID, country_name=countryName).delete()
 
         db.session.commit()
 
         return ('Done', 201)
 
-    myDestinations = Destination.query.filter_by(user_id=user.id)
+    myDestinations = Destination.query.filter_by(user_id=userID)
 
     myDests = [dest.serialize() for dest in myDestinations.all()]
 
